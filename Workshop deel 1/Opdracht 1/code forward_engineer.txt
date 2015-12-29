@@ -1,0 +1,66 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema Opdracht1
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Opdracht1
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Opdracht1` DEFAULT CHARACTER SET utf8 ;
+USE `Opdracht1` ;
+
+-- -----------------------------------------------------
+-- Table `Opdracht1`.`Klant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Opdracht1`.`Klant` (
+  `klant_id` INT NOT NULL,
+  `voornaam` VARCHAR(50) NOT NULL,
+  `achternaam` VARCHAR(51) NOT NULL,
+  `tussenvoegsel` VARCHAR(10) NULL,
+  `email` VARCHAR(320) NOT NULL,
+  `straatnaam` VARCHAR(26) NOT NULL,
+  `postcode` VARCHAR(6) NOT NULL,
+  `toevoeging` VARCHAR(6) NULL,
+  `huisnummer` INT NOT NULL,
+  `woonplaats` VARCHAR(26) NOT NULL,
+  PRIMARY KEY (`klant_id`),
+  UNIQUE INDEX `klant_id_UNIQUE` (`klant_id` ASC),
+  UNIQUE INDEX `CONSTRAINT_Klant` (`voornaam` ASC, `achternaam` ASC, `email` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Opdracht1`.`Bestelling`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Opdracht1`.`Bestelling` (
+  `bestelling_id` INT NOT NULL,
+  `klant_id` INT NOT NULL,
+  `artikel1_id` INT NOT NULL,
+  `artikel1_naam` VARCHAR(45) NOT NULL,
+  `artikel1_prijs` DOUBLE NOT NULL,
+  `artikel2_id` INT NOT NULL,
+  `artikel2_naam` VARCHAR(45) NOT NULL,
+  `artikel2_prijs` DOUBLE NOT NULL,
+  `artikel3_id` INT NOT NULL,
+  `artikel3_naam` VARCHAR(45) NULL,
+  `artikel3_prijs` DOUBLE NOT NULL,
+  `Bestellingcol` VARCHAR(45) NULL,
+  PRIMARY KEY (`bestelling_id`),
+  UNIQUE INDEX `bestelling_id_UNIQUE` (`bestelling_id` ASC),
+  INDEX `klant_id_idx` (`klant_id` ASC),
+  CONSTRAINT `klant_id`
+    FOREIGN KEY (`klant_id`)
+    REFERENCES `Opdracht1`.`Klant` (`klant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
